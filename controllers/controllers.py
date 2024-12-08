@@ -171,7 +171,6 @@ class EventController:
     def edit_event(event_id, name, description, event_type, date, time, location, image=None, remove_image=False):
         event = Event.query.get(event_id)
         
-        # Update event details
         event.name = name
         event.description = description
         event.type = event_type
@@ -179,35 +178,14 @@ class EventController:
         event.time = time
         event.location = location
         
-        # Handle image update
         if remove_image:
             event.remove_image()
         elif image and image.filename:
             event.update_image(image)
         
-        # Commit changes to the database
         db.session.commit()
         
         
-
-    @staticmethod
-    def get_coordinates(location):
-        import requests
-        url = f"https://nominatim.openstreetmap.org/search"
-        params = {
-            "q": location,
-            "format": "json",
-            "addressdetails": 1,
-        }
-        try:
-            response = requests.get(url, params=params)
-            response.raise_for_status()
-            data = response.json()
-            if data:
-                return float(data[0]['lat']), float(data[0]['lon'])
-        except (requests.exceptions.RequestException, KeyError, IndexError, ValueError) as e:
-            print(f"Error fetching coordinates: {e}")
-        return None
 
     @staticmethod
     def get_signup_count(event_id):

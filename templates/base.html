@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Event Management{% endblock %}</title>
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Favicon Links -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicons/site.webmanifest') }}">
+</head>
+<body>
+    <div class="wrapper" style="display: flex; flex-direction: column; min-height: 100vh;">
+        <!-- Navigation Bar -->
+        <nav style="display: flex; justify-content: center; align-items: center; padding: 15px; background-color: #003594; position: relative; border-bottom: 6px solid #00509e;">
+            <div style="position: absolute; left: 10px;">
+                <a href="{{ url_for('events') }}">
+                    <img src="{{ url_for('static', filename='img/Shield_UnivPittsburgh_WhiteGold.png') }}" 
+                         alt="University of Pittsburgh Logo" 
+                         style="height: 60px; vertical-align: middle;">
+                </a>
+            </div>
+        </nav>
+
+        <!-- Buttons Section -->
+        <div class="nav-buttons-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 10px 0; border-bottom: 2px solid #ddd; background: #f9f9f9;">
+            <a href="{{ url_for('events') }}" class="btn">Home</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}" class="btn">Logout</a>
+                {% if current_user.role == 'event_creator' %}
+                    <a href="{{ url_for('add_event_route') }}" class="btn">Add Event</a>
+                {% endif %}
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn">Login</a>
+                <a href="{{ url_for('register') }}" class="btn">Register</a>
+            {% endif %}
+        </div>
+
+        {% if current_user.is_authenticated %}
+        <div style="position: absolute; right: 10px; display: flex; align-items: center;">
+            <a href="{{ url_for('profile') }}" style="display: flex; align-items: center; text-decoration: none;">
+                {% if current_user.profile_picture %}
+                    <img src="{{ url_for('static', filename='uploads/profile_pictures/' + current_user.profile_picture) }}" 
+                         alt="Profile Picture" 
+                         style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                {% else %}
+                    <div style="width: 40px; height: 40px; border-radius: 50%; background-color: #ccc; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                        <span style="font-size: 18px; color: #fff;">{{ current_user.username[0] | upper }}</span>
+                    </div>
+                {% endif %}
+                <span style="font-size: 16px; font-weight: bold; color: #fff;">{{ current_user.username }}</span>
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Main Content -->
+        <div class="container">
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            &copy; 2024 Event Management App - University of Pittsburgh
+        </footer>
+    </div>
+</body>
+</html>
+
+<script>
+    let logoutTimer;
+
+    function resetTimer() {
+        clearTimeout(logoutTimer);
+        logoutTimer = setTimeout(() => {
+            alert("You have been logged out due to inactivity.");
+            window.location.href = "{{ url_for('logout') }}";
+        }, 20 * 60 * 1000); // 20 minutes in milliseconds
+    }
+
+    // Reset the timer on user interactions
+    window.onload = resetTimer;
+    document.onmousemove = resetTimer;
+    document.onkeypress = resetTimer;
+    document.onclick = resetTimer;
+    document.onscroll = resetTimer;
+</script>
+
+<link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-o3w2arwZNFjsW1S7grnE35Yp7m8w7wlzebvPlsXTidA="
+    crossorigin=""
+/>
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o3w2arwZNFjsW1S7grnE35Yp7m8w7wlzebvPlsXTidA="
+    crossorigin=""
+></script>

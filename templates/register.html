@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+{% block content %}
+<div class="form-container">
+    <h1>Register</h1>
+
+    <!-- Flash Messages Block -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('register') }}" enctype="multipart/form-data" class="styled-form">
+        <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" name="username" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" required>
+            <button type="button" onclick="togglePasswordVisibility('password')">Show</button>
+        </div>
+
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" name="confirm_password" id="confirm_password" required>
+            <button type="button" onclick="togglePasswordVisibility('confirm_password')">Show</button>
+        </div>
+
+        <div class="form-group">
+            <label for="role">Role:</label>
+            <select name="role" id="role" onchange="toggleRegistrationCode()">
+                <option value="attendee">Attendee</option>
+                <option value="event_creator">Event Creator</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="registration-code-field" style="display: none;">
+            <label for="registration_code">Registration Code:</label>
+            <input type="text" name="registration_code" id="registration_code">
+        </div>
+
+        <div class="form-group">
+            <label for="profile_picture">Profile Picture:</label>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+<script>
+    function togglePasswordVisibility(id) {
+        const input = document.getElementById(id);
+        input.type = input.type === "password" ? "text" : "password";
+    }
+
+    function toggleRegistrationCode() {
+        const role = document.getElementById('role').value;
+        const regCodeField = document.getElementById('registration-code-field');
+        regCodeField.style.display = role === 'event_creator' ? 'block' : 'none';
+    }
+</script>
+{% endblock %}

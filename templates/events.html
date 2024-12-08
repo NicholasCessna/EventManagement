@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Events{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: #003594;">Events</h1>
+
+<form method="POST" action="{{ url_for('events') }}" style="text-align: center; margin-bottom: 20px;">
+    <input type="text" name="search" placeholder="Search events..." style="padding: 10px; width: 300px;">
+    <button type="submit" style="padding: 10px 20px; background: #003594; color: #fff; border: none; border-radius: 5px;">
+        Search
+    </button>
+</form>
+
+{% if events %}
+    <ul class="event-list">
+        {% for event in events %}
+            <li class="event-item">
+                <div class="event-image">
+                    {% if event.image_filename %}
+                        <img src="{{ url_for('static', filename='uploads/' + event.image_filename) }}" alt="Event Image">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='uploads/default_event_image.jpg') }}" alt="Default Event Image">
+                    {% endif %}
+                </div>
+                <div class="event-details">
+                    <h3>
+                        <a href="{{ url_for('event_detail', event_id=event.id) }}" 
+                           style="color: #003594; text-decoration: none;">
+                            {{ event.name }}
+                        </a>
+                    </h3>
+                    <p><strong>Date:</strong> {{ event.date }}</p>
+                    <p><strong>Time:</strong> {{ event.time }}</p>
+                    <p><strong>Type:</strong> {{ event.type }}</p>
+                    <p>
+                        {{ event.description[:150] }}{% if event.description|length > 150 %}... 
+                        <a href="{{ url_for('event_detail', event_id=event.id) }}" style="color: #003594;">(View Details)</a>{% endif %}
+                    </p>
+                    <p><strong>Signups:</strong> {{ event_signup_counts[event.id] }} users</p>
+                    {% if current_user.is_authenticated %}
+                        {% if event.date > current_date or (event.date == current_date and event.time >= current_time) %}
+                            {% if event_signup_status[event.id] %}
+                                <p>You are signed up.</p>
+                            {% else %}
+                                <a href="{{ url_for('signup', event_id=event.id) }}" 
+                                   class="btn">
+                                    Sign Up
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <span style="color: gray;">Past Event</span>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p style="text-align: center;">No events found.</p>
+{% endif %}
+
+<div class="pagination" style="text-align: center; margin-top: 20px;">
+    {% if prev_page %}
+        <a href="{{ url_for('events', page=prev_page) }}" style="margin-right: 10px; color: #003594; text-decoration: none;">Previous</a>
+    {% endif %}
+    {% if next_page %}
+        <a href="{{ url_for('events', page=next_page) }}" style="color: #003594; text-decoration: none;">Next</a>
+    {% endif %}
+</div>
+{% endblock %}

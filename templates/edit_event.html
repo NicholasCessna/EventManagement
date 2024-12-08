@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 style="text-align: center; color: #003594;">Edit Event</h1>
+
+    <form method="POST" action="{{ url_for('edit_event', event_id=event.id) }}" enctype="multipart/form-data" class="form-container" onsubmit="return validateDateTime()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{ event.name }}" required>
+        
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required>{{ event.description }}</textarea>
+        
+        <label for="event_type">Event Type:</label>
+        <input type="text" id="event_type" name="event_type" value="{{ event.type }}" required>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" value="{{ event.date }}" required>
+        
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" value="{{ event.time.strftime('%H:%M') }}" required>
+        
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="{{ event.location }}" required>
+
+        <div style="margin-top: 20px;">
+            {% if event.image %}
+                <label>Current Image:</label>
+                <div class="event-image">
+                    <img src="{{ url_for('static', filename='uploads/' + event.image) }}" alt="Event Image" style="width: 150px; height: auto; margin-bottom: 10px;">
+                </div>
+                <input type="checkbox" id="remove_image" name="remove_image" value="yes">
+                <label for="remove_image">Remove current image</label>
+            {% endif %}
+        </div>
+
+        <label for="image">Replace/Add Image:</label>
+        <input type="file" id="image" name="image" accept="image/*">
+
+        <button type="submit" class="btn">Save Changes</button>
+    </form>
+</div>
+
+<script>
+    function validateDateTime() {
+        const dateInput = document.getElementById('date').value; // Get date input
+        const timeInput = document.getElementById('time').value; // Get time input
+
+        if (!dateInput || !timeInput) {
+            alert('Both date and time fields are required.');
+            return false;
+        }
+
+        const currentDateTime = new Date(); // Get current date and time
+        const selectedDateTime = new Date(`${dateInput}T${timeInput}`); // Combine inputs into a Date object
+
+        if (selectedDateTime <= currentDateTime) {
+            alert('Please enter a date and time in the future.');
+            return false; // Prevent form submission
+        }
+
+        return true; // Allow form submission if validation passes
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<script>
+    function togglePasswordVisibility(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+    function confirmAction(message) {
+        return confirm(message);
+    }
+
+    function confirmAccountDeletion() {
+        return confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    }
+</script>
+
+<div class="form-container">
+    <h1>User Profile</h1>
+    <form method="POST" action="{{ url_for('profile') }}" enctype="multipart/form-data" onsubmit="return confirmAction('Are you sure you want to update your profile?')">
+        <input type="hidden" name="update_profile">
+        <div class="form-group">
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" required>
+        </div>
+        <div class="form-group">
+            <label for="profile_picture">Profile Picture:</label>
+            <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+            {% if user.profile_picture %}
+                <p>Current Picture:</p>
+                <img src="{{ url_for('static', filename='uploads/profile_pictures/' + user.profile_picture) }}" 
+                     alt="Profile Picture" style="width: 80px; height: 80px; border-radius: 50%;">
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Update Profile</button>
+    </form>
+</div>
+
+<div class="form-container">
+    <h2>Change Password</h2>
+    <form method="POST" action="{{ url_for('profile') }}" onsubmit="return confirmAction('Are you sure you want to change your password?')">
+        <input type="hidden" name="change_password">
+        <div class="form-group">
+            <label for="old_password">Old Password:</label>
+            <input type="password" id="old_password" name="old_password" required>
+            <button type="button" onclick="togglePasswordVisibility('old_password')">Show</button>
+        </div>
+        <div class="form-group">
+            <label for="new_password">New Password:</label>
+            <input type="password" id="new_password" name="new_password" required>
+            <button type="button" onclick="togglePasswordVisibility('new_password')">Show</button>
+        </div>
+        <div class="form-group">
+            <label for="confirm_password">Confirm New Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            <button type="button" onclick="togglePasswordVisibility('confirm_password')">Show</button>
+        </div>
+        <button type="submit" class="btn btn-primary">Change Password</button>
+    </form>
+</div>
+
+<div class="centered-section">
+    <h2>Events You're Signed Up For</h2>
+    <ul class="event-list">
+        {% for event in events_for_user %}
+            <li>
+                <a href="{{ url_for('event_detail', event_id=event.id) }}">{{ event.name }}</a>
+                <p><strong>Date:</strong> {{ event.date }}</p>
+                <p><strong>Time:</strong> {{ event.time }}</p>
+                {% if event.date > current_date or (event.date == current_date and event.time >= current_time) %}
+                    <form method="POST" action="{{ url_for('unsign_event', event_id=event.id) }}" style="margin-top: 10px;">
+                        <button type="submit" class="btn">Unsign</button>
+                    </form>
+                {% else %}
+                    <span style="color: gray;">Past Event</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% if created_events %}
+<div class="centered-section">
+    <h2>Events You've Created</h2>
+    <ul class="event-list">
+        {% for event in created_events %}
+            <li>
+                <a href="{{ url_for('event_detail', event_id=event.id) }}">{{ event.name }}</a>
+                <p><strong>Date:</strong> {{ event.date }}</p>
+                <p><strong>Time:</strong> {{ event.time }}</p>
+                {% if event.date > current_date or (event.date == current_date and event.time >= current_time) %}
+                    <div style="margin-top: 10px;">
+                        <form method="POST" action="{{ url_for('delete_event', event_id=event.id) }}" style="display: inline-block;">
+                            <button type="submit" class="btn">Delete</button>
+                        </form>
+                        <a href="{{ url_for('edit_event', event_id=event.id) }}" class="btn" style="margin-left: 10px;">Edit</a>
+                    </div>
+                {% else %}
+                    <span style="color: gray;">Archived Event</span>
+                {% endif %}
+                <a href="{{ url_for('view_signups', event_id=event.id) }}" class="btn" style="margin-left: 10px;">View Signups</a>
+            </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('profile') }}" onsubmit="return confirmAccountDeletion()" class="form-container">
+    <input type="hidden" name="delete_account">
+    <button type="submit" class="btn btn-danger">Delete Account</button>
+</form>
+</div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+
+<script>
+    function togglePasswordVisibility(id) {
+        var x = document.getElementById(id);
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+
+    function confirmAction(message) {
+        return confirm(message);
+    }
+</script>
+
+    <h1>Login</h1>
+    <form method="POST" action="{{ url_for('login') }}">
+        <label for="username">Username:</label>
+        <input type="text" name="username" required>
+        
+        <label for="password">Password:</label>
+        <input type="password" id = "password" name="password" required>
+        <button type="button" onclick="togglePasswordVisibility('password')">Show</button>
+        
+        <button type="submit">Login</button>
+    </form>
+{% endblock %}
+
+

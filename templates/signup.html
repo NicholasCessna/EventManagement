@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+    <h2>Sign Up for Event</h2>
+    <p>Are you sure you want to sign up for "{{ event.name }}"?</p>
+    
+    <form method="post" action="{{ url_for('signup', event_id=event.id) }}">
+        <button type="submit">Yes, Sign Me Up!</button>
+    </form>
+{% endblock %}

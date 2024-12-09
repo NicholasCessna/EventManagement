@@ -185,7 +185,6 @@ class EventController:
         
         db.session.commit()
         
-        
 
     @staticmethod
     def get_signup_count(event_id):

@@ -4,8 +4,8 @@
 
 {% block content %}
 <script>
-    function togglePasswordVisibility(id) {
-        var x = document.getElementById(id);
+    function togglePasswordVisibility(feildId) {
+        var x = document.getElementById(feildId);
         if (x.type === "password") {
             x.type = "text";
         } else {
@@ -19,6 +19,14 @@
 
     function confirmAccountDeletion() {
         return confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    }
+
+    function confirmUnsign() {
+        return confirm("Are you sure you no longer want to attend this event.? ");
+    }
+
+    function confirmAction(message) {
+        return confirm(message);
     }
 </script>
 
@@ -74,6 +82,8 @@
     </form>
 </div>
 
+
+
 <div class="centered-section">
     <h2>Events You're Signed Up For</h2>
     <ul class="event-list">
@@ -84,7 +94,7 @@
                 <p><strong>Time:</strong> {{ event.time }}</p>
                 {% if event.date > current_date or (event.date == current_date and event.time >= current_time) %}
                     <form method="POST" action="{{ url_for('unsign_event', event_id=event.id) }}" style="margin-top: 10px;">
-                        <button type="submit" class="btn">Unsign</button>
+                        <button type="submit" class="btn" onclick="return confirmUnsign();">Unsign</button>
                     </form>
                 {% else %}
                     <span style="color: gray;">Past Event</span>
@@ -93,6 +103,7 @@
         {% endfor %}
     </ul>
 </div>
+
 
 {% if created_events %}
 <div class="centered-section">

@@ -12,7 +12,6 @@
         const longitudeInput = document.getElementById('longitude');
         let map, marker;
 
-        // Initialize the map
         function initMap(lat = 40.4406, lng = -79.9959) {
             map = L.map('map').setView([lat, lng], 13);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -22,7 +21,6 @@
             marker = L.marker([lat, lng]).addTo(map);
         }
 
-        // Update the map with new coordinates
         function updateMap(lat, lng) {
             if (map && marker) {
                 map.setView([lat, lng], 13);
@@ -30,7 +28,6 @@
             }
         }
 
-        // Fetch suggestions from Nominatim API
         async function fetchSuggestions(query) {
             try {
                 const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&addressdetails=1&limit=5`);
@@ -44,7 +41,6 @@
             }
         }
 
-        // Render suggestions in the dropdown
         function renderSuggestions(suggestions) {
             suggestionsContainer.innerHTML = '';
             suggestions.forEach((suggestion) => {
@@ -62,19 +58,17 @@
             });
         }
 
-        // Add input event listener to fetch suggestions
         if (locationInput) {
             locationInput.addEventListener('input', (e) => {
                 const query = e.target.value;
                 if (query.length >= 3) {
                     fetchSuggestions(query);
                 } else {
-                    suggestionsContainer.innerHTML = ''; // Clear suggestions if query is too short
+                    suggestionsContainer.innerHTML = ''; 
                 }
             });
         }
 
-        // Initialize the map on page load
         initMap();
     });
 </script>

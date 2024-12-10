@@ -40,7 +40,7 @@ body::before {
 
 /* Navigation Bar */
 nav {
-    background: #003594; /* Pitt Blue */
+    background: #003594; 
     color: #fff;
     height: 50px;
     text-align: center;
@@ -48,7 +48,7 @@ nav {
 }
 
 nav a {
-    color: #FFB81C; /* Pitt Gold */
+    color: #FFB81C; 
     text-decoration: none;
     padding: 10px 20px;
     font-size: 16px;
@@ -68,14 +68,14 @@ nav a:hover {
     align-items: center;
     gap: 20px;
     padding: 10px 0;
-    background: #f9f9f9; /* Light background to separate from header */
-    border-bottom: 2px solid #ddd; /* Optional separator */
+    background: #f9f9f9; 
+    border-bottom: 2px solid #ddd; 
 }
 
 .nav-buttons-container .btn {
     display: inline-block;
     padding: 8px 12px;
-    background-color: #003594; /* Pitt Blue */
+    background-color: #003594; 
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
@@ -84,13 +84,13 @@ nav a:hover {
 }
 
 .nav-buttons-container .btn:hover {
-    background-color: #FFB81C; /* Pitt Gold */
+    background-color: #FFB81C; 
     color: #003594;
 }
 
 /* Footer Styling */
 footer {
-    background: #003594; /* Pitt Blue */
+    background: #003594; 
     color: #fff;
     text-align: center;
     padding: 20px 0;
@@ -102,37 +102,37 @@ footer {
 /* Center Events Section (Profile Page) */
 .centered-section {
     display: flex;
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center content horizontally */
-    text-align: center; /* Center text inside the section */
-    margin: 20px 0; /* Add spacing between sections */
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center; 
+    margin: 20px 0; 
 }
 
 .centered-section h2 {
     margin-bottom: 10px;
-    color: #003594; /* Pitt Blue */
+    color: #003594; 
     font-size: 22px;
 }
 
 /* Event List */
 .event-list {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three columns */
-    gap: 100px; /* Spacing between cards */
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 100px; 
     list-style: none;
     padding: 0;
     margin: auto;
-    max-width: 1400px; /* Limit the total width of the grid */
+    max-width: 1400px; 
 }
 
 /* Event Item Card */
 .event-item {
-    display: flex; /* Align image and details horizontally */
+    display: flex; 
     justify-content: space-between;
     align-items: left;
-    width: 100%; /* Full width inside the grid */
-    max-width: 800px; /* Limit the card width */
-    height: 300px; /* Fixed height for uniformity */
+    width: 100%; 
+    max-width: 800px;
+    height: 300px; 
     padding: 15px;
     background-color: #fff;
     border: 1px solid #ddd;
@@ -145,9 +145,9 @@ footer {
 
 .event-detail-container {
     display: flex;
-    justify-content: center; /* Horizontally center the card */
-    align-items: center; /* Vertically center the card */
-    min-height: calc(100vh - 100px); /* Full height minus header/footer */
+    justify-content: center; 
+    align-items: center; 
+    min-height: calc(100vh - 100px); 
     padding: 20px;
 }
 
@@ -160,16 +160,16 @@ footer {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    width: 100%; /* Full width inside container */
-    max-width: 400px; /* Center the card */
+    width: 100%; 
+    max-width: 400px; 
     text-align: center;
 }
 
 .event-detail-image img {
     width: 100%;
     height: auto;
-    max-height: 300px; /* Limit image height */
-    object-fit: contain; /* Preserve aspect ratio */
+    max-height: 300px; 
+    object-fit: contain; 
     border-radius: 8px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -177,7 +177,7 @@ footer {
 
 .event-detail-info h1 {
     margin: 0 0 20px;
-    color: #003594; /* Pitt Blue */
+    color: #003594; 
     font-size: 24px;
 }
 
@@ -188,7 +188,7 @@ footer {
 
 .event-detail-info .btn {
     margin-top: 20px;
-    background: #003594; /* Pitt Blue */
+    background: #003594; 
     color: #fff;
     padding: 10px 20px;
     text-decoration: none;
@@ -197,14 +197,14 @@ footer {
 }
 
 .event-detail-info .btn:hover {
-    background: #FFB81C; /* Pitt Gold */
+    background: #FFB81C; 
     color: #003594;
 }
 
 /* Event Image */
 .event-image {
     flex: 1;
-    max-width: 150px; /* Limit image size */
+    max-width: 150px; 
     height: auto;
     display: flex;
     align-items: center;
@@ -212,11 +212,11 @@ footer {
 }
 
 .event-image img {
-    width: 100%; /* Scale to fit the container */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%; 
+    height: auto; 
     border-radius: 8px;
     border: 1px solid #ddd;
-    object-fit: contain; /* Ensure the full image fits within the container */
+    object-fit: contain; 
 }
 
 /* Pagination */
@@ -244,7 +244,7 @@ footer {
 .btn {
     display: inline-block;
     padding: 8px 12px;
-    background-color: #003594; /* Pitt Blue */
+    background-color: #003594; 
     color: #fff;
     text-decoration: none;
     border-radius: 4px;
@@ -253,8 +253,8 @@ footer {
 }
 
 .btn:hover {
-    background-color: #FFB81C; /* Pitt Gold */
-    color: #003594; /* Pitt Blue */
+    background-color: #FFB81C; 
+    color: #003594; 
 }
 
 /* Form Styling */
@@ -270,27 +270,27 @@ footer {
 /* Responsive Design */
 @media (max-width: 1024px) {
     .event-list {
-        grid-template-columns: repeat(2, 1fr); /* Two columns for medium screens */
+        grid-template-columns: repeat(2, 1fr); 
     }
 }
 
 @media (max-width: 768px) {
     .event-list {
-        grid-template-columns: 1fr; /* Single column for smaller screens */
+        grid-template-columns: 1fr; 
     }
 
     .event-item {
-        flex-direction: column; /* Stack details and image */
-        height: auto; /* Adjust card height */
+        flex-direction: column; 
+        height: auto; 
     }
 
     .event-image {
-        width: 100%; /* Full width for stacked layout */
-        height: auto; /* Adjust height */
+        width: 100%; 
+        height: auto; 
         margin-bottom: 15px;
     }
 
     .event-details {
-        margin-right: 0; /* Remove spacing in stacked layout */
+        margin-right: 0; 
     }
 }

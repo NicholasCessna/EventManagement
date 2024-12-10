@@ -53,7 +53,6 @@
             marker = L.marker([lat, lng]).addTo(map);
         }
 
-        // Use Nominatim to fetch coordinates for the given location
         fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&limit=1`)
             .then(response => response.json())
             .then(data => {

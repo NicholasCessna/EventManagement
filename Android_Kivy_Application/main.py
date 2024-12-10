@@ -1,6 +1,4 @@
 # main.py kivy app to build android app
-# Need to update logic for loading screen to stay until URL fully loads. 
-# Cathy loading Image flashes with black screen to load. 
 # OnRender URL doesnt load very fast. Would use a better solution for actual deployment.
 
 from kivy.app import App

@@ -5,10 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Event Management{% endblock %}</title>
 
-    <!-- Stylesheets -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <!-- Favicon Links -->
     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
     <link rel="manifest" href="{{ url_for('static', filename='favicons/site.webmanifest') }}">
@@ -26,7 +24,6 @@
             </div>
         </nav>
 
-        <!-- Buttons Section -->
         <div class="nav-buttons-container" style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 10px 0; border-bottom: 2px solid #ddd; background: #f9f9f9;">
             <a href="{{ url_for('events') }}" class="btn">Home</a>
             {% if current_user.is_authenticated %}
@@ -57,12 +54,10 @@
         </div>
         {% endif %}
 
-        <!-- Main Content -->
         <div class="container">
             {% block content %}{% endblock %}
         </div>
 
-        <!-- Footer -->
         <footer>
             &copy; 2024 Event Management App - University of Pittsburgh
         </footer>
@@ -81,7 +76,6 @@
         }, 20 * 60 * 1000); // 20 minutes in milliseconds
     }
 
-    // Reset the timer on user interactions
     window.onload = resetTimer;
     document.onmousemove = resetTimer;
     document.onkeypress = resetTimer;

@@ -1,7 +1,9 @@
 Coding Parts Breakdown
 
-Nicholas Cessna = Flask App: controllers.py, flask_routes.py, all html templayes, sytle.css, email_verifier.py,                    app.py 
-                  Kivy App: main.py, webviewone.py (settings adjustments), buildozer.spec, Built APK (find link                    to APK in kivy_webview_app/ReadMe.txt
+Nicholas Cessna = 
+Flask App: controllers.py, flask_routes.py, all html templayes, sytle.css, email_verifier.py,                  app.py 
+
+Kivy App: main.py, webviewone.py (settings adjustments), buildozer.spec, Built APK (find link                   to APK in kivy_webview_app/ReadMe.txt
 
 Zhiyong Zhang = models.py
 
